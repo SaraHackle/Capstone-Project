@@ -1,5 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
+import { CardList } from "./components/cards/CardList";
 import { GameList } from "./components/game/GameList";
 import { NewGameForm } from "./components/game/NewGameForm";
 
@@ -12,6 +13,9 @@ export const ApplicationViews = () => {
             </Route>
             <Route path="/newgame">
                 <NewGameForm />
+            </Route>
+            <Route path="/cardList">
+                <CardList />
             </Route>
         </>
     )
