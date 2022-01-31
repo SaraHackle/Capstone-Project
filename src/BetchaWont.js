@@ -4,6 +4,7 @@ import { Login } from "./components/auth/Login";
 import { Register } from "./components/auth/Register";
 import "./BetchaWont.css";
 import { NavBar } from "./components/nav/NavBar";
+import { ApplicationViews } from "./ApplicationViews";
 
 export const BetchaWont = () => (
   <>
@@ -12,9 +13,9 @@ export const BetchaWont = () => (
         if (localStorage.getItem("betcha_user")) {
           return (
             <>
-              <NavBar/>
+              <NavBar />
               <h2>BetchaWont</h2>
-              
+              <ApplicationViews />
             </>
           );
         } else {
