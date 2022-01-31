@@ -1,5 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 
 export const GameList = () => {
   const [games, setGames] = useState([]);
@@ -31,9 +33,10 @@ export const GameList = () => {
     <div>
       {games.map((gameObject) => {
         return (
-          <p key={gameObject.id}>
+          <div key={gameObject.id}>
+            <Link to={`/game/${gameObject.id}`}><h2>Game{gameObject.id}</h2></Link>
             Opponent: {gameObject.visitor.name} Score: {gameObject.hostScore}
-          </p>
+          </div>
         );
       })}
     </div>
