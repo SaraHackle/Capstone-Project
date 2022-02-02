@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export const GameList = () => {
   const [games, setGames] = useState([]);
+  const [deleted, updateDelete] = useState(0);
 
   useEffect(() => {
     const userId = parseInt(localStorage.getItem("betcha_user"));
@@ -23,10 +24,17 @@ export const GameList = () => {
               host: users.find((u) => u.id === gameObject.hostId),
             }));
             setGames(g);
-            console.log(g);
           });
       });
-  }, []);
+  }, [deleted]);
+
+  const deleteGame = (id) => {
+    fetch(`http://localhost:8088/games/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      updateDelete(deleted + 1);
+    });
+  };
 
   return (
     <div>
@@ -49,6 +57,17 @@ export const GameList = () => {
                 <h2>Game{gameObject.id}</h2>
               </Link>
               Opponent: {gameObject.host.name} Score: {gameObject.visitorScore}
+              <Link to={"/allgames"}>
+                {" "}
+                <button
+                  className="btn--deleteGame"
+                  onClick={() => {
+                    deleteGame(gameObject.id);
+                  }}
+                >
+                  Quit Game
+                </button>
+              </Link>
             </div>
           );
         }
