@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-
 export const GameList = () => {
   const [games, setGames] = useState([]);
 
@@ -32,23 +31,27 @@ export const GameList = () => {
   return (
     <div>
       {games.map((gameObject) => {
-        if (parseInt(localStorage.getItem("betcha_user")) === gameObject.hostId) {
-          return (
-          <div key={gameObject.id}>
-            <Link to={`/game/${gameObject.id}`}><h2>Game{gameObject.id}</h2></Link>
-            Opponent: {gameObject.visitor.name} Score: {gameObject.hostScore}
-              
-          </div>) }
-      else {
+        if (
+          parseInt(localStorage.getItem("betcha_user")) === gameObject.hostId
+        ) {
           return (
             <div key={gameObject.id}>
-            <Link to={`/game/${gameObject.id}`}><h2>Game{gameObject.id}</h2></Link>
-            Opponent: {gameObject.host.name} Score: {gameObject.visitorScore}
-      
-          </div>
-          )
+              <Link to={`/game/${gameObject.id}`}>
+                <h2>Game{gameObject.id}</h2>
+              </Link>
+              Opponent: {gameObject.visitor.name} Score: {gameObject.hostScore}
+            </div>
+          );
+        } else {
+          return (
+            <div key={gameObject.id}>
+              <Link to={`/game/${gameObject.id}`}>
+                <h2>Game{gameObject.id}</h2>
+              </Link>
+              Opponent: {gameObject.host.name} Score: {gameObject.visitorScore}
+            </div>
+          );
         }
-        ;
       })}
     </div>
   );
