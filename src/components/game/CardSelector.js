@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 export const CardSelector = () => {
   const [cards, setCards] = useState([]);
   const [cardToUpdate, updateCardToUpdate] = useState({});
+  const [activeCard, selectActiveCard] =useState(0)
   const { gameId } = useParams();
   const userId = parseInt(localStorage.getItem("betcha_user"));
 
@@ -15,7 +16,7 @@ export const CardSelector = () => {
       .then((data) => {
         setCards(data);
       });
-  }, []);
+  }, [activeCard]);
 
   const updateCard = (event) => {
     event.preventDefault();
@@ -34,14 +35,16 @@ export const CardSelector = () => {
     return fetch(
       `http://localhost:8088/gameCards/${cardToUpdate.id}`,
       fetchOption
-    ).then(() => {});
+    ).then(() => {
+        selectActiveCard(activeCard)
+    });
   };
 
   return (
     <section>
       <fieldset>
         {cards.map((card) => {
-          if (card.game.hostId === userId && card.isHostCard) {
+          if (card.game.hostId === userId && card.isHostCard === true && card.isActive === false) {
             return (
               <li key={card.id}>
                 <h1>{card.card.title}</h1>
@@ -59,7 +62,7 @@ export const CardSelector = () => {
               </li>
             );
           } else {
-            if (card.game.visitorId === userId && card.isHostCard === false) {
+            if (card.game.visitorId === userId && card.isHostCard === false && card.isActive === false) {
               return (
                 <li key={card.id}>
                   <h1>{card.card.title}</h1>
