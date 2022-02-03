@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CardSelector } from "./CardSelector";
+import { ActiveCard } from "./ActiveCard";
 
 export const CurrentGame = () => {
   const [cards, setCards] = useState([]);
@@ -36,10 +37,32 @@ export const CurrentGame = () => {
       });
   }, [reload]);
 
-  const finishCard = (card, isCompleted) => {
-    const playedCard = {
-      isCompleted: card.isCompleted,
+  const finishCard = (cardId) => {
+    const skippedCard = {
       isPlayed: true,
+      isActive: false,
+    };
+
+    const fetchOption = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(skippedCard),
+    };
+
+    return fetch(`http://localhost:8088/gameCards/${cardId}`, fetchOption).then(
+      () => {
+        setReload(reload + 1);
+      }
+    );
+  };
+
+  const completedCard = (cardId) => {
+    const playedCard = {
+      isCompleted: true,
+      isPlayed: true,
+      isActive: false,
     };
 
     const fetchOption = {
@@ -50,12 +73,11 @@ export const CurrentGame = () => {
       body: JSON.stringify(playedCard),
     };
 
-    return fetch(
-      `http://localhost:8088/gameCards/${card.id}`,
-      fetchOption
-    ).then(() => {
-      setReload(reload + 1);
-    });
+    return fetch(`http://localhost:8088/gameCards/${cardId}`, fetchOption).then(
+      () => {
+        setReload(reload + 1);
+      }
+    );
   };
 
   const playCard = (card) => {
@@ -89,7 +111,17 @@ export const CurrentGame = () => {
       <section>
         <h2>Current Game:</h2>
         <p>Am I the host? {`${isUserHost}`}</p>
-        <CardSelector availableCards={availableCards} playCard={playCard} />
+        <ActiveCard
+          myActiveCard={myActiveCard}
+          oppActiveCard={oppActiveCard}
+          completedCard={completedCard}
+          finishCard={finishCard}
+        />
+        <CardSelector
+          availableCards={availableCards}
+          playCard={playCard}
+          myActive={myActiveCard}
+        />
       </section>
     </>
   );
