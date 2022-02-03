@@ -45,11 +45,9 @@ export const NewGameForm = () => {
     return fetch("http://localhost:8088/games", fetchOption)
       .then((data) => data.json())
       .then(async (data) => {
-        console.log(data);
         gameId = data.id;
         await Promise.all(
           cards.map((card) => {
-            console.log("card.id", card.id);
             return fetch("http://localhost:8088/gameCards", {
               method: "POST",
               headers: {
@@ -70,7 +68,6 @@ export const NewGameForm = () => {
       .then(async (data) => {
         await Promise.all(
           cards.map((card) => {
-            console.log("card.id", card.id);
             return fetch("http://localhost:8088/gameCards", {
               method: "POST",
               headers: {
