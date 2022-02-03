@@ -4,6 +4,7 @@ import { CardList } from "./components/cards/CardList";
 import { GameList } from "./components/game/GameList";
 import { NewGameForm } from "./components/game/NewGameForm";
 import { CurrentGame } from "./components/game/CurrentGame";
+import { CardSelector } from "./components/game/CardSelector";
 
 export const ApplicationViews = () => {
   return (

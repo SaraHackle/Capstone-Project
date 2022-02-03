@@ -45,9 +45,14 @@ export const GameList = () => {
           return (
             <div key={gameObject.id}>
               <Link to={`/game/${gameObject.id}`}>
-                <h2>Game{gameObject.id}</h2>
+                  <h2>Game{gameObject.id}</h2>
               </Link>
-              Opponent: {gameObject.visitor.name} Score: {gameObject.hostScore}
+                  Opponent: {gameObject.visitor.name} Score: {gameObject.hostScore} {" "}
+              <button
+                className="btn--deleteGame"
+                onClick={() => {deleteGame(gameObject.id)}}>
+                Quit Game
+              </button>
             </div>
           );
         } else {
@@ -56,18 +61,15 @@ export const GameList = () => {
               <Link to={`/game/${gameObject.id}`}>
                 <h2>Game{gameObject.id}</h2>
               </Link>
-              Opponent: {gameObject.host.name} Score: {gameObject.visitorScore}
-              <Link to={"/allgames"}>
-                {" "}
-                <button
-                  className="btn--deleteGame"
-                  onClick={() => {
-                    deleteGame(gameObject.id);
-                  }}
-                >
-                  Quit Game
-                </button>
-              </Link>
+              Opponent: {gameObject.host.name} Score: {gameObject.visitorScore}{" "}
+              <button
+                className="btn--deleteGame"
+                onClick={() => {
+                  deleteGame(gameObject.id);
+                }}
+              >
+                Quit Game
+              </button>
             </div>
           );
         }
