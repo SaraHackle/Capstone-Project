@@ -58,7 +58,7 @@ export const PreviousGameList = () => {
               </button>
             </div>
           );
-        } else {
+        } else if (parseInt(localStorage.getItem("betcha_user")) === gameObject.visitorId){
           return (
             <div key={gameObject.id}>
               <Link to={`/game/${gameObject.id}`}>
@@ -75,6 +75,8 @@ export const PreviousGameList = () => {
               </button>
             </div>
           );
+        } else {
+            return ""
         }
       })}
     </div>

@@ -10,7 +10,7 @@ export const GameList = () => {
     const userId = parseInt(localStorage.getItem("betcha_user"));
     let games;
     let users;
-    fetch("http://localhost:8088/games?gameCompleted=false")
+    fetch("http://localhost:8088/games")
       .then((res) => res.json())
       .then((data) => {
         games = data;
@@ -55,7 +55,7 @@ export const GameList = () => {
               </button>
             </div>
           );
-        } else {
+        } else if (parseInt(localStorage.getItem("betcha_user")) === gameObject.visitorId) {
           return (
             <div key={gameObject.id}>
               <Link to={`/game/${gameObject.id}`}>
@@ -72,6 +72,9 @@ export const GameList = () => {
               </button>
             </div>
           );
+        } else {
+          return ""
+          
         }
       })}
     </div>
