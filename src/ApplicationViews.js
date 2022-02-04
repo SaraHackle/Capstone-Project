@@ -5,6 +5,7 @@ import { GameList } from "./components/game/GameList";
 import { NewGameForm } from "./components/game/NewGameForm";
 import { CurrentGame } from "./components/game/CurrentGame";
 import { CardSelector } from "./components/game/CardSelector";
+import { PreviousGameList } from "./components/game/PreviousGameList";
 
 export const ApplicationViews = () => {
   return (
@@ -12,6 +13,9 @@ export const ApplicationViews = () => {
       <Route path="/allgames">
         <h3> Current Games: </h3>
         <GameList />
+      </Route>
+      <Route exact path="/previousgames">
+        <PreviousGameList />
       </Route>
       <Route path="/newgame">
         <NewGameForm />

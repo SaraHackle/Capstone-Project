@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { CardSelector } from "./CardSelector";
 import { ActiveCard } from "./ActiveCard";
 import { GameScore } from "./GameScore";
+import { FinishGame } from "./FinishGame";
 
 export const CurrentGame = () => {
   const [cards, setCards] = useState([]);
@@ -14,6 +15,7 @@ export const CurrentGame = () => {
   const [oppActiveCard, setOppActiveCard] = useState([]);
   const [myCompletedCards, updateMyCompletedCards] = useState([]);
   const [oppCompletedCards, updateOppCompletedCards] = useState([]);
+  const [finishedGame, setFinishedGame] = useState(false);
   const { gameId } = useParams();
   const userId = parseInt(localStorage.getItem("betcha_user"));
 
@@ -45,8 +47,25 @@ export const CurrentGame = () => {
           (completedCards) => completedCards.isCompleted === true
         );
         updateOppCompletedCards(tOppCompletedCards);
+        let allPlayedCards = data.filter((c) => c.isPlayed === true);
+        let isGameFinished = allPlayedCards.length === 14 ? true : false;
+        setFinishedGame(isGameFinished);
       });
   }, [reload]);
+
+  useEffect(() => {
+    if (finishedGame === true) {
+      return fetch(`http://localhost:8088/games/${gameId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          gameCompleted: true,
+        }),
+      });
+    }
+  }, [finishedGame]);
 
   const finishCard = (cardId) => {
     const skippedCard = {
@@ -69,16 +88,16 @@ export const CurrentGame = () => {
     );
   };
 
-  const completedCard = (cardId,gameId) => {
+  const completedCard = (cardId, gameId) => {
     const playedCard = {
       isCompleted: true,
       isPlayed: true,
       isActive: false,
     };
-    const updateScore ={
+    const updateScore = {
       hostScore: myCompletedCards.length,
-      visitorScore: oppCompletedCards.length
-    }
+      visitorScore: oppCompletedCards.length,
+    };
 
     const fetchOption = {
       method: "PATCH",
@@ -89,22 +108,18 @@ export const CurrentGame = () => {
     };
 
     return fetch(`http://localhost:8088/gameCards/${cardId}`, fetchOption)
-    .then(
-      () => {
+      .then(() => {
         setReload(reload + 1);
-      }
-    )
-    .then(() =>{
-      return fetch(`http://localhost:8088/games/${gameId}`, {
+      })
+      .then(() => {
+        return fetch(`http://localhost:8088/games/${gameId}`, {
           method: "PATCH",
           headers: {
-              "Content-Type" : "application/json"
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(updateScore)
-      }
-      
-      )
-    })
+          body: JSON.stringify(updateScore),
+        });
+      });
   };
 
   const playCard = (card) => {
@@ -133,26 +148,37 @@ export const CurrentGame = () => {
   };
 
   return (
-     <fieldset>
+    <fieldset>
       <section>
         <h2>Current Game:</h2>
         <p>Am I the host? {`${isUserHost}`}</p>
-        <GameScore
-          myCompletedCards={myCompletedCards}
-          oppCompletedCards={oppCompletedCards}
-        />
+        {finishedGame ? (
+          <FinishGame
+            cards={cards}
+            finishedGame={finishedGame}
+            myCompletedCards={myCompletedCards}
+            oppCompletedCards={oppCompletedCards}
+          />
+        ) : (
+          <div>
+            <GameScore
+              myCompletedCards={myCompletedCards}
+              oppCompletedCards={oppCompletedCards}
+            />
 
-        <ActiveCard
-          myActiveCard={myActiveCard}
-          oppActiveCard={oppActiveCard}
-          completedCard={completedCard}
-          finishCard={finishCard}
-        />
-        <CardSelector
-          availableCards={availableCards}
-          playCard={playCard}
-          myActive={myActiveCard}
-        />
+            <ActiveCard
+              myActiveCard={myActiveCard}
+              oppActiveCard={oppActiveCard}
+              completedCard={completedCard}
+              finishCard={finishCard}
+            />
+            <CardSelector
+              availableCards={availableCards}
+              playCard={playCard}
+              myActive={myActiveCard}
+            />
+          </div>
+        )}
       </section>
     </fieldset>
   );
