@@ -80,6 +80,7 @@ export const NewGameForm = () => {
                 isCompleted: false,
                 isActive: false,
                 isHostCard: false,
+                gameCompleted: false
               }),
             });
           })

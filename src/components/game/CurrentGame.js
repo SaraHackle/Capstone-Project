@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CardSelector } from "./CardSelector";
 import { ActiveCard } from "./ActiveCard";
+import { GameScore } from "./GameScore";
 
 export const CurrentGame = () => {
   const [cards, setCards] = useState([]);
@@ -11,6 +12,8 @@ export const CurrentGame = () => {
   const [availableCards, updateAvailableCards] = useState([]);
   const [myActiveCard, setMyActiveCard] = useState([]);
   const [oppActiveCard, setOppActiveCard] = useState([]);
+  const [myCompletedCards, updateMyCompletedCards] = useState([]);
+  const [oppCompletedCards, updateOppCompletedCards] = useState([]);
   const { gameId } = useParams();
   const userId = parseInt(localStorage.getItem("betcha_user"));
 
@@ -34,6 +37,14 @@ export const CurrentGame = () => {
         setMyActiveCard(tMyActiveCard);
         let tOppActiveCard = oppCards.filter((oc) => oc.isActive === true);
         setOppActiveCard(tOppActiveCard);
+        let tMyCompletedCards = oppCards.filter(
+          (completedCards) => completedCards.isCompleted === true
+        );
+        updateMyCompletedCards(tMyCompletedCards);
+        let tOppCompletedCards = myCards.filter(
+          (completedCards) => completedCards.isCompleted === true
+        );
+        updateOppCompletedCards(tOppCompletedCards);
       });
   }, [reload]);
 
@@ -58,12 +69,16 @@ export const CurrentGame = () => {
     );
   };
 
-  const completedCard = (cardId) => {
+  const completedCard = (cardId,gameId) => {
     const playedCard = {
       isCompleted: true,
       isPlayed: true,
       isActive: false,
     };
+    const updateScore ={
+      hostScore: myCompletedCards.length,
+      visitorScore: oppCompletedCards.length
+    }
 
     const fetchOption = {
       method: "PATCH",
@@ -73,11 +88,23 @@ export const CurrentGame = () => {
       body: JSON.stringify(playedCard),
     };
 
-    return fetch(`http://localhost:8088/gameCards/${cardId}`, fetchOption).then(
+    return fetch(`http://localhost:8088/gameCards/${cardId}`, fetchOption)
+    .then(
       () => {
         setReload(reload + 1);
       }
-    );
+    )
+    .then(() =>{
+      return fetch(`http://localhost:8088/games/${gameId}`, {
+          method: "PATCH",
+          headers: {
+              "Content-Type" : "application/json"
+          },
+          body: JSON.stringify(updateScore)
+      }
+      
+      )
+    })
   };
 
   const playCard = (card) => {
@@ -106,11 +133,15 @@ export const CurrentGame = () => {
   };
 
   return (
-    <>
-      {" "}
+     <fieldset>
       <section>
         <h2>Current Game:</h2>
         <p>Am I the host? {`${isUserHost}`}</p>
+        <GameScore
+          myCompletedCards={myCompletedCards}
+          oppCompletedCards={oppCompletedCards}
+        />
+
         <ActiveCard
           myActiveCard={myActiveCard}
           oppActiveCard={oppActiveCard}
@@ -123,6 +154,6 @@ export const CurrentGame = () => {
           myActive={myActiveCard}
         />
       </section>
-    </>
+    </fieldset>
   );
 };

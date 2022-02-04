@@ -7,32 +7,42 @@ export const ActiveCard = ({
   completedCard,
 }) => {
   return (
-    <>
-      <section>
+    <section>
+      <section
+        key={`myActiveCard--1`}
+        className="myActiveCard myActiveCard-item"
+      >
         {myActiveCard.map((mac) => {
-          return <div key={mac.id}>{mac.card.title}</div>;
+          return (
+            <div key={`myActiveCard--${mac.card.id}`}>{mac.card.title}</div>
+          );
         })}
       </section>
-      <section>
+      <section
+        key={`oppActiveCard--2`}
+        className="oppActiveCard oppActiveCard-item"
+      >
         {oppActiveCard.map((oac) => {
           return (
             <>
-              <div key={oac.id}>{oac?.card?.title}</div>
-              <div>
+              <div key={`oppActiveCard--${oac.card.id}`}>
+                {oac?.card?.title}
+
                 <button
+                  key={`completeButton--${oac.card.id}`}
                   className="btn btn-completeCard"
                   onClick={() => {
-                    completedCard(oac.id);
+                    completedCard(oac.id, oac.game.id);
                   }}
                 >
                   Complete Task
                 </button>
-              </div>
-              <div>
+
                 <button
+                  key={`skipButton--${oac.card.id}`}
                   className="btn btn-skipCard"
                   onClick={() => {
-                    finishCard(oac.id);
+                    finishCard(oac.id, oac.game.id);
                   }}
                 >
                   Decline Task
@@ -42,6 +52,6 @@ export const ActiveCard = ({
           );
         })}
       </section>
-    </>
+    </section>
   );
 };
