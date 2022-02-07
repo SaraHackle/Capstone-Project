@@ -16,6 +16,8 @@ export const CurrentGame = () => {
   const [myCompletedCards, updateMyCompletedCards] = useState([]);
   const [oppCompletedCards, updateOppCompletedCards] = useState([]);
   const [finishedGame, setFinishedGame] = useState(false);
+  const [isMyFinalCard, setIsMyFinalCard] = useState(false);
+  const [isOppFinalCard, setIsOppFinalCard] = useState(false);
   const { gameId } = useParams();
   const userId = parseInt(localStorage.getItem("betcha_user"));
 
@@ -50,6 +52,12 @@ export const CurrentGame = () => {
         let allPlayedCards = data.filter((c) => c.isPlayed === true);
         let isGameFinished = allPlayedCards.length === 14 ? true : false;
         setFinishedGame(isGameFinished);
+        let myPlayedCards = myCards.filter((mc) => mc.isPlayed === true);
+        let myFinalCard = myPlayedCards.length === 7 ? true : false;
+        setIsMyFinalCard(myFinalCard);
+        let oppPlayedCards = oppCards.filter((oc) => oc.isPlayed === true);
+        let oppFinalCard = oppPlayedCards.length === 7 ? true : false;
+        setIsOppFinalCard(oppFinalCard);
       });
   }, [reload]);
 
@@ -165,17 +173,23 @@ export const CurrentGame = () => {
               myCompletedCards={myCompletedCards}
               oppCompletedCards={oppCompletedCards}
             />
-            <MyActiveCard myActiveCard={myActiveCard} />
+            <MyActiveCard
+              myActiveCard={myActiveCard}
+              isMyFinalCard={isMyFinalCard}
+            />
 
             <OppActiveCard
               oppActiveCard={oppActiveCard}
               completedCard={completedCard}
               finishCard={finishCard}
+              isOppFinalCard={isOppFinalCard}
             />
             <CardSelector
+              isMyFinalCard={isMyFinalCard}
               availableCards={availableCards}
               playCard={playCard}
               myActiveCard={myActiveCard}
+              isMyFinalCard={isMyFinalCard}
             />
           </div>
         )}
