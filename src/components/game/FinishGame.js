@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
-import { GameScore } from "./GameScore";
+import React from "react";
+
 
 export const FinishGame = ({
-  cards,
-  finishedGame,
   myCompletedCards,
   oppCompletedCards,
 }) => {

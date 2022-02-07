@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
-import {useHistory} from "react-router-dom"
+import { useHistory } from "react-router-dom";
 
 export const NewGameForm = () => {
   const [users, setUsers] = useState([]);
   const [visitorId, updateVisitor] = useState({});
   const [cards, setCards] = useState([]);
+  const [availableUsers, setAvailableUsers] = useState([]);
+  const userId = parseInt(localStorage.getItem("betcha_user"));
 
-  const history = useHistory()
-
+  const history = useHistory();
 
   useEffect(() => {
     fetch("http://localhost:8088/users")
       .then((res) => res.json())
       .then((data) => {
         setUsers(data);
+        let otherUsers = data.filter((ou) => ou.id !== userId);
+        setAvailableUsers(otherUsers);
       });
   }, []);
 
@@ -35,7 +38,7 @@ export const NewGameForm = () => {
       visitorAccepted: false,
       visitorScore: 0,
       hostScore: 0,
-      gameCompleted: false
+      gameCompleted: false,
     };
 
     //this creates a new game
@@ -65,7 +68,6 @@ export const NewGameForm = () => {
                 isCompleted: false,
                 isActive: false,
                 isHostCard: true,
-
               }),
             });
           })
@@ -90,9 +92,10 @@ export const NewGameForm = () => {
             });
           })
         );
-      }) .then(() => {
-        history.push("/allgames")
       })
+      .then(() => {
+        history.push("/allgames");
+      });
   };
 
   const handleUserInput = (event) => {
@@ -112,7 +115,7 @@ export const NewGameForm = () => {
             className="form-control"
           >
             <option value="0">Select your opponent</option>
-            {users.map((user) => (
+            {availableUsers.map((user) => (
               <option key={user.id} value={user.id}>
                 {user.name}
               </option>

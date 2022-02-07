@@ -1,14 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
 
-export const CardSelector = ({ availableCards, playCard }) => {
+export const CardSelector = ({ availableCards, playCard, myActiveCard }) => {
   const [cardToUpdate, updateCardToUpdate] = useState({});
 
   const updateCard = (event) => {
     event.preventDefault();
     playCard(cardToUpdate);
   };
-
+ if (myActiveCard) {
+   return(
+    <fieldset>
+    {availableCards.map((card) => {
+      return (
+        <li key={card.id}>
+          <h1>{card.card.title}</h1>
+          <p>{card.card.description}</p>
+        </li>
+      );
+    })}
+  </fieldset>
+   )
+ } else {
   return (
     <section>
       <fieldset>
@@ -37,5 +49,5 @@ export const CardSelector = ({ availableCards, playCard }) => {
         </button>
       </fieldset>
     </section>
-  );
+  )}
 };

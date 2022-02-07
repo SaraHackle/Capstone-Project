@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CardSelector } from "./CardSelector";
-import { ActiveCard } from "./ActiveCard";
+import { OppActiveCard } from "./OppActiveCard";
 import { GameScore } from "./GameScore";
 import { FinishGame } from "./FinishGame";
+import { MyActiveCard } from "./MyActiveCard";
 
 export const CurrentGame = () => {
   const [cards, setCards] = useState([]);
-  const [cardToUpdate, updateCardToUpdate] = useState({});
   const [reload, setReload] = useState(0);
   const [isUserHost, setIsUserHost] = useState();
   const [availableCards, updateAvailableCards] = useState([]);
-  const [myActiveCard, setMyActiveCard] = useState([]);
-  const [oppActiveCard, setOppActiveCard] = useState([]);
+  const [myActiveCard, setMyActiveCard] = useState({});
+  const [oppActiveCard, setOppActiveCard] = useState({});
   const [myCompletedCards, updateMyCompletedCards] = useState([]);
   const [oppCompletedCards, updateOppCompletedCards] = useState([]);
   const [finishedGame, setFinishedGame] = useState(false);
@@ -35,9 +35,9 @@ export const CurrentGame = () => {
         );
         updateAvailableCards(myAvailableCards);
         let oppCards = data.filter((c) => c.isHostCard !== isUserHost);
-        let tMyActiveCard = myCards.filter((mc) => mc.isActive === true);
+        let tMyActiveCard = myCards.find((mc) => mc.isActive === true);
         setMyActiveCard(tMyActiveCard);
-        let tOppActiveCard = oppCards.filter((oc) => oc.isActive === true);
+        let tOppActiveCard = oppCards.find((oc) => oc.isActive === true);
         setOppActiveCard(tOppActiveCard);
         let tMyCompletedCards = oppCards.filter(
           (completedCards) => completedCards.isCompleted === true
@@ -165,9 +165,9 @@ export const CurrentGame = () => {
               myCompletedCards={myCompletedCards}
               oppCompletedCards={oppCompletedCards}
             />
+            <MyActiveCard myActiveCard={myActiveCard} />
 
-            <ActiveCard
-              myActiveCard={myActiveCard}
+            <OppActiveCard
               oppActiveCard={oppActiveCard}
               completedCard={completedCard}
               finishCard={finishCard}
@@ -175,7 +175,7 @@ export const CurrentGame = () => {
             <CardSelector
               availableCards={availableCards}
               playCard={playCard}
-              myActive={myActiveCard}
+              myActiveCard={myActiveCard}
             />
           </div>
         )}
