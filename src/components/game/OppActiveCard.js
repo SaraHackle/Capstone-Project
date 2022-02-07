@@ -1,6 +1,6 @@
 import React from "react";
 
-export const OppActiveCard = ({ oppActiveCard, finishCard, completedCard }) => {
+export const OppActiveCard = ({ oppActiveCard, finishCard, completedCard, isOppFinalCard }) => {
   if (oppActiveCard) {
     return (
       <section>
@@ -27,7 +27,11 @@ export const OppActiveCard = ({ oppActiveCard, finishCard, completedCard }) => {
         </div>
       </section>
     );
-  } else if (!oppActiveCard) {
+  } 
+  else if (!oppActiveCard && isOppFinalCard === false) {
     return <div> Waiting for Opponent to play a card... </div>;
+  }
+  else if (!oppActiveCard && isOppFinalCard === true) {
+    return <div> Opponent has played all cards </div>;
   }
 };

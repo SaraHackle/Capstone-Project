@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const CardSelector = ({ availableCards, playCard, myActiveCard }) => {
+export const CardSelector = ({ availableCards, playCard, myActiveCard, isMyFinalCard }) => {
   const [cardToUpdate, updateCardToUpdate] = useState({});
 
   const updateCard = (event) => {
@@ -43,11 +43,13 @@ export const CardSelector = ({ availableCards, playCard, myActiveCard }) => {
           );
         })}
       </fieldset>
-      <fieldset>
+      { !isMyFinalCard ?
+      <fieldset>   
         <button className="btn btn-playCard" onClick={updateCard}>
           Play Card
         </button>
-      </fieldset>
+      </fieldset> : ""
+        }
     </section>
   )}
 };

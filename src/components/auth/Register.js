@@ -62,10 +62,6 @@ export const Register = (props) => {
                            placeholder="Enter your name" required autoFocus />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="address"> Address </label>
-                    <input onChange={updateUser} type="text" id="address" className="form-control" placeholder="Street address" required />
-                </fieldset>
-                <fieldset>
                     <label htmlFor="email"> Email address </label>
                     <input onChange={updateUser} type="email" id="email" className="form-control" placeholder="Email address" required />
                 </fieldset>

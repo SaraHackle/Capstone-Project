@@ -10,7 +10,7 @@ export const GameList = () => {
     const userId = parseInt(localStorage.getItem("betcha_user"));
     let games;
     let users;
-    fetch("http://localhost:8088/games")
+    fetch("http://localhost:8088/games?gameCompleted=false")
       .then((res) => res.json())
       .then((data) => {
         games = data;
