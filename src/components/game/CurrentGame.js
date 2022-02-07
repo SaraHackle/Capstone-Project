@@ -159,7 +159,6 @@ export const CurrentGame = () => {
     <fieldset>
       <section>
         <h2>Current Game:</h2>
-        <p>Am I the host? {`${isUserHost}`}</p>
         {finishedGame ? (
           <FinishGame
             cards={cards}
