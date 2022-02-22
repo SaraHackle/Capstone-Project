@@ -1,0 +1,160 @@
+.newGameFormTitle{
+    font-family: "Sofia", sans-serif;
+}
+
+ .opponentForm{
+    font-family: "Sofia", sans-serif;
+}
+
+.gameOverButtons {
+    display:flex;
+}
+
+.availableCardRow {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 2rem;
+    overflow: auto;
+    flex-direction: row;
+}
+
+.cardWrapper {
+    display: flex;
+    position: relative;
+    height: 100%;
+    flex-direction: column;
+}
+
+.cardWrapper:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    background-image: url('../images/CardBackground.png');
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover;
+}
+  
+.cardImage {
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+
+.availableCard {
+    margin: 1rem;
+    flex-shrink: 0;
+    min-width: 250px;
+    box-shadow: 5px 10px #8888;
+    border-radius: round;
+    background-image: url("../images/CardBackground.png");
+    background-repeat: no-repeat;
+    background-size: cover;    
+}
+
+.availableCardItem {
+    font-size: 1rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    font-weight: bolder;
+    color: #34586e;    
+}
+
+.activeCard {
+    margin: 1rem;
+    flex-shrink: 0;
+    min-width: 250px;
+    max-width: 250px;
+    box-shadow: 5px 10px #8888;
+    border-radius: round;
+    background-image: url("../images/CardBackground.png");
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;     
+}
+
+.activeCardItem{
+    font-size: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    font-weight: bolder;
+    color: #34586e
+}
+
+.expandItem {
+ padding-top: .5rem;   
+ padding-bottom: .5rem;
+}
+
+
+.playButton{
+    display: flex;
+    justify-content: center;  
+}
+
+.gameWrapper{
+    margin-bottom: 50px;
+    
+}
+.activeCardGameplay{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.scoreCounter {
+    font-family: 'Permanent Marker', cursive;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+    align-items: center
+}
+
+.waitingCard {
+    font-family: "Sofia", sans-serif;
+}
+
+.gameHeader {
+    font-family: "Sofia", sans-serif;
+    display: flex;
+    align-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.gameList, .formBox, .gameOver{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gameListItem, .newGameForm, .gameOverItem{
+    font-family: 'Permanent Marker';
+    display: flex;
+    align-items: center;
+    border-style: outset;
+    justify-content: space-evenly;
+    align-content: space-around;
+    min-width: 300px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+    background-color: #f7b9a1;
+}
+
+body {
+    background-color: #f6f6e9;  
+}
+

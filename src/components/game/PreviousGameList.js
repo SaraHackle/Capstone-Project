@@ -1,6 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Button from "@mui/material/Button";
+import { Typography } from "@mui/material";
+import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
 export const PreviousGameList = () => {
   const [games, setGames] = useState([]);
@@ -37,46 +40,124 @@ export const PreviousGameList = () => {
   };
 
   return (
-    <div>
+    <div className="gameList">
       {games.map((gameObject) => {
         if (
           parseInt(localStorage.getItem("betcha_user")) === gameObject.hostId
         ) {
           return (
-            <div key={gameObject.id}>
-              <Link to={`/game/${gameObject.id}`}>
-                <h2>Game{gameObject.id}</h2>
-              </Link>
-              Opponent: {gameObject.visitor.name} Score: {gameObject.hostScore}{" "}
-              <button
+            <div className="gameListItem" key={gameObject.id}>
+              <Button
+                sx={{ color: "#f7b9a1" }}
+                component={Link}
+                to={`/game/${gameObject.id}`}
+              >
+                <Typography
+                  mb={1}
+                  sx={{
+                    color: "#34586e",
+                    "&:hover": {
+                      color: "white",
+                    },
+                    fontWeight: "bold",
+                    fontSize: "xx-large",
+                  }}
+                >
+                  {" "}
+                  View Game {gameObject.id}{" "}
+                  <DoubleArrowIcon mt={2} fontSize="medium" />
+                </Typography>
+              </Button>
+
+              <Typography
+                mb={2}
+                sx={{
+                  fontFamily: "Permanent Marker",
+                }}
+              >
+                Opponent: {gameObject.visitor.name}
+                <br />
+                Score: {gameObject.hostScore}{" "}
+              </Typography>
+
+              <Button
+                sx={{
+                  color: "white",
+                  "&:hover": {
+                    color: " #34586e",
+                    backgroundColor: "white",
+                  },
+                  background: "#34586e",
+                }}
+                variant="contained"
                 className="btn--deleteGame"
                 onClick={() => {
                   deleteGame(gameObject.id);
                 }}
               >
                 Remove Game
-              </button>
+              </Button>
             </div>
           );
-        } else if (parseInt(localStorage.getItem("betcha_user")) === gameObject.visitorId){
+        } else if (
+          parseInt(localStorage.getItem("betcha_user")) === gameObject.visitorId
+        ) {
           return (
-            <div key={gameObject.id}>
-              <Link to={`/game/${gameObject.id}`}>
-                <h2>Game{gameObject.id}</h2>
-              </Link>
-              Opponent: {gameObject.host.name} Score: {gameObject.visitorScore}{" "}
-              <button
+            <div className="gameListItem" key={gameObject.id}>
+              <Button
+                sx={{ color: "#f7b9a1" }}
+                component={Link}
+                to={`/game/${gameObject.id}`}
+              >
+                <Typography
+                  mb={1}
+                  sx={{
+                    color: "#34586e",
+                    "&:hover": {
+                      color: "white",
+                    },
+                    fontWeight: "bold",
+                    fontSize: "xx-large",
+                  }}
+                >
+                  {" "}
+                  View Game {gameObject.id}{" "}
+                  <DoubleArrowIcon mt={2} fontSize="medium" />
+                </Typography>
+              </Button>
+
+              <Typography
+                mb={2}
+                sx={{
+                  fontFamily: "Permanent Marker",
+                }}
+              >
+                Opponent: {gameObject.host.name}
+                <br />
+                Score: {gameObject.visitorScore}{" "}
+              </Typography>
+
+              <Button
+                sx={{
+                  color: "white",
+                  "&:hover": {
+                    color: " #34586e",
+                    backgroundColor: "white",
+                  },
+                  background: "#34586e",
+                }}
+                variant="contained"
                 className="btn--deleteGame"
                 onClick={() => {
                   deleteGame(gameObject.id);
                 }}
               >
                 Remove Game
-              </button>
+              </Button>
             </div>
           );
         } else {
-            return ""
+          return "";
         }
       })}
     </div>

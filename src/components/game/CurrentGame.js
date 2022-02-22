@@ -5,7 +5,9 @@ import { OppActiveCard } from "./OppActiveCard";
 import { GameScore } from "./GameScore";
 import { FinishGame } from "./FinishGame";
 import { MyActiveCard } from "./MyActiveCard";
+import "./Game.css";
 
+//this holds all state for active gameplay
 export const CurrentGame = () => {
   const [cards, setCards] = useState([]);
   const [reload, setReload] = useState(0);
@@ -21,6 +23,12 @@ export const CurrentGame = () => {
   const { gameId } = useParams();
   const userId = parseInt(localStorage.getItem("betcha_user"));
 
+  //this gets all data needed for game play
+  //fetches all gamecards that match the current game linked to using params
+  //expands all card details on the cards
+  //expands the game with the matching game Id and all relevant information
+  //then it sets each state based on various conditions
+  //
   useEffect(() => {
     fetch(
       `http://localhost:8088/gameCards?gameId=${gameId}&_expand=card&_expand=game`
@@ -61,6 +69,7 @@ export const CurrentGame = () => {
       });
   }, [reload]);
 
+  //sets game completed to true when all cards are played
   useEffect(() => {
     if (finishedGame === true) {
       return fetch(`http://localhost:8088/games/${gameId}`, {
@@ -75,6 +84,7 @@ export const CurrentGame = () => {
     }
   }, [finishedGame]);
 
+  //when card is completed or declined, patches to database to set card to played and active to false
   const finishCard = (cardId) => {
     const skippedCard = {
       isPlayed: true,
@@ -96,16 +106,25 @@ export const CurrentGame = () => {
     );
   };
 
+  //when card is marked completed, database updates as completed card, played card, and active to false
+  //then another patch to the database updates gamescore
   const completedCard = (cardId, gameId) => {
     const playedCard = {
       isCompleted: true,
       isPlayed: true,
       isActive: false,
     };
-    const updateScore = {
-      hostScore: myCompletedCards.length,
-      visitorScore: oppCompletedCards.length,
-    };
+
+    let updateScore;
+    if (isUserHost) {
+      updateScore = {
+        hostScore: myCompletedCards.length + 1,
+      };
+    } else {
+      updateScore = {
+        visitorScore: myCompletedCards.length + 1,
+      };
+    }
 
     const fetchOption = {
       method: "PATCH",
@@ -129,7 +148,7 @@ export const CurrentGame = () => {
         });
       });
   };
-
+  //sets active card into game board when a card is selected
   const playCard = (card) => {
     const activeCard = {
       isActive: card.isActive,
@@ -155,11 +174,10 @@ export const CurrentGame = () => {
     event.preventDefault();
   };
 
+  //renders game until game is marked completed, and then renders game over.
   return (
-    <fieldset>
-      <section>
-        <h2>Current Game:</h2>
-        <p>Am I the host? {`${isUserHost}`}</p>
+    <section className="betchaWont">
+      <div>
         {finishedGame ? (
           <FinishGame
             cards={cards}
@@ -168,32 +186,38 @@ export const CurrentGame = () => {
             oppCompletedCards={oppCompletedCards}
           />
         ) : (
-          <div>
-            <GameScore
-              myCompletedCards={myCompletedCards}
-              oppCompletedCards={oppCompletedCards}
-            />
-            <MyActiveCard
-              myActiveCard={myActiveCard}
-              isMyFinalCard={isMyFinalCard}
-            />
+          <div className="gameWrapper">
+            <div className="activeGameWrapper">
+              <GameScore
+                myCompletedCards={myCompletedCards}
+                oppCompletedCards={oppCompletedCards}
+              />
+              <div className="activeCardGameplay">
+                <MyActiveCard
+                  myActiveCard={myActiveCard}
+                  isMyFinalCard={isMyFinalCard}
+                />
 
-            <OppActiveCard
-              oppActiveCard={oppActiveCard}
-              completedCard={completedCard}
-              finishCard={finishCard}
-              isOppFinalCard={isOppFinalCard}
-            />
-            <CardSelector
-              isMyFinalCard={isMyFinalCard}
-              availableCards={availableCards}
-              playCard={playCard}
-              myActiveCard={myActiveCard}
-              isMyFinalCard={isMyFinalCard}
-            />
+                <OppActiveCard
+                  oppActiveCard={oppActiveCard}
+                  completedCard={completedCard}
+                  finishCard={finishCard}
+                  isOppFinalCard={isOppFinalCard}
+                />
+              </div>
+            </div>
+            <div className="availableCardWraper">
+              <CardSelector
+                isMyFinalCard={isMyFinalCard}
+                availableCards={availableCards}
+                playCard={playCard}
+                myActiveCard={myActiveCard}
+                isMyFinalCard={isMyFinalCard}
+              />
+            </div>
           </div>
         )}
-      </section>
-    </fieldset>
+      </div>
+    </section>
   );
 };
