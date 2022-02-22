@@ -1,6 +1,6 @@
 # BetchaWont!
 
-BetchaWont is an interactive game that can be played by anyone sharing a living space. A deck of cards is presented to each user, which are intended to be acted out in real time. BeatchaWont creates a fun way to delegate chores. Complete the tasks presented on each card to recieve points, and enjoy the benefits of seeing those tasks come to life. 
+BetchaWont is an interactive game that can be played by anyone sharing a living space. A deck of cards is presented to each user, which are intended to be acted out in real time. BetchaWont creates a fun way to delegate chores. Complete the tasks presented on each card to recieve points, and enjoy the benefits of seeing those tasks come to life. 
 
 ## Who is it for?
 
