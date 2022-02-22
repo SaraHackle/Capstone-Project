@@ -1,0 +1,16 @@
+.pageHeader{
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.photo {
+    display: flex;
+    height: 100px;
+    width:100px;
+    align-items: flex-start;
+    margin-right: 50px;
+}

@@ -4,14 +4,16 @@ import { CardList } from "./components/cards/CardList";
 import { GameList } from "./components/game/GameList";
 import { NewGameForm } from "./components/game/NewGameForm";
 import { CurrentGame } from "./components/game/CurrentGame";
-import { CardSelector } from "./components/game/CardSelector";
+import { Home } from "./components/home/Home";
 import { PreviousGameList } from "./components/game/PreviousGameList";
 
 export const ApplicationViews = () => {
   return (
     <>
+      <Route exact path="/">
+        <Home />
+      </Route>
       <Route path="/allgames">
-        <h3> Current Games: </h3>
         <GameList />
       </Route>
       <Route exact path="/previousgames">
