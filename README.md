@@ -18,7 +18,7 @@ Directions for installing React are located at the bottom of this page. Simply c
 
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 
-## Project Sanpshots
+## Project Snapshots
 
 ![alt text](https://user-images.githubusercontent.com/81321900/155062243-599cc430-223e-4e75-a12f-86f53057a554.png)
 ![alt text](https://user-images.githubusercontent.com/81321900/155062273-b8d83b16-6f07-4a9c-9a49-125d6855f83e.png)
