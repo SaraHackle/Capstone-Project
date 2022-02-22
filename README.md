@@ -1,3 +1,34 @@
+# BetchaWont!
+
+BetchaWont is an interactive game that can be played by anyone sharing a living space. A deck of cards is presented to each user, which are intended to be acted out in real time. BeatchaWont creates a fun way to delegate chores. Complete the tasks presented on each card to recieve points, and enjoy the benefits of seeing those tasks come to life. 
+
+## Who is it for?
+
+Anyone and everyone living in a shared space!
+
+## Why do I need it?
+
+Have you ever gotten into a debate about who does more around the house? This game is for you! Prove you have always done more, watch your housemate *finally* clean those bathrooms, and do it in the most fun way. Single-handedly turning chores, cooking, and even picking up the check into a more enjoyable experience for everyone involved. 
+
+## Getting Started
+
+Directions for installing React are located at the bottom of this page. Simply clone down this project and the Capstone-API repository, npm start, create a new user, and watch the game come to life.
+
+## Tech Stack
+
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+
+## Project Sanpshots
+
+![alt text](https://user-images.githubusercontent.com/81321900/155062243-599cc430-223e-4e75-a12f-86f53057a554.png)
+![alt text](https://user-images.githubusercontent.com/81321900/155062273-b8d83b16-6f07-4a9c-9a49-125d6855f83e.png)
+![alt text](https://user-images.githubusercontent.com/81321900/155062290-1bde9d28-fc18-4545-b2a5-6f190e1cb8fc.png)
+![alt text](https://user-images.githubusercontent.com/81321900/155062298-f14a51c8-3eee-4c5b-8fc9-c8ebedb27dc8.png)
+![alt text](https://user-images.githubusercontent.com/81321900/155062312-b69a6fbd-90e0-4c0f-879e-c79b469c955e.png)
+![alt text](https://user-images.githubusercontent.com/81321900/155062351-eed4b624-9326-4b7e-804d-51e8fbcdc17b.png)
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
